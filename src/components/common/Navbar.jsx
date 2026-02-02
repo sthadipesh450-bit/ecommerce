@@ -13,7 +13,7 @@ function Navbar() {
 
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full inline-flex items-center justify-center font-bold bg-gradient-to-r from-indigo-500 to-pink-500 text-white shadow-md">
+            <div className="w-10 h-10 rounded-full inline-flex items-center justify-center font-bold bg-linear-to-r from-indigo-500 to-pink-500 text-white shadow-md">
               E
             </div>
             <span className="font-semibold text-white">Ecommerce</span>
@@ -37,7 +37,7 @@ function Navbar() {
             {/* Colorful Cart */}
             <Link
               to="/cart"
-              className="relative inline-flex items-center gap-2 px-3 py-1 rounded-md text-white bg-gradient-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg hover:scale-105 transform transition-all focus:outline-none focus:ring-2 focus:ring-purple-400"
+              className="relative inline-flex items-center gap-2 px-3 py-1 rounded-md text-white bg-linear-to-r from-purple-500 via-pink-500 to-red-500 shadow-lg hover:scale-105 transform transition-all focus:outline-none focus:ring-2 focus:ring-purple-400"
             >
               {/* Cart Icon */}
               <svg
@@ -58,7 +58,7 @@ function Navbar() {
 
               {/* Cart Count Badge with new color suggestion */}
               {cartCount > 0 && (
-                <span className="inline-flex items-center justify-center min-w-[24px] h-6 px-2 text-xs font-medium rounded-full bg-cyan-400 text-black shadow-sm">
+                <span className="inline-flex items-center justify-center min-w-6 h-6 px-2 text-xs font-medium rounded-full bg-cyan-400 text-black shadow-sm">
                   {cartCount}
                 </span>
               )}
