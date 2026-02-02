@@ -1,18 +1,47 @@
-import React from 'react'
+import React from 'react';
 import { useCart } from '../hooks/useCart';
-import ProductCard from '../components/products/ProductCard'
+import ProductCard from '../components/products/ProductCard';
 
 function Cartpage() {
-  const {items} = useCart();
-  console.log("Items in cart:", items);
+  const { cartItems, cartCount, cartTotal, removeFromCart, clearCart } = useCart();
+
+  if (!cartItems || cartItems.length === 0) {
+    return <p className="mt-4 text-center text-gray-600">Your cart is empty.</p>;
+  }
 
   return (
-    <div className="mt-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-      {items.map((product) => (
-        <ProductCard key={product.id} product={product} />
-      ))}
+    <div className="p-4">
+      <div className="flex items-center justify-between mb-4">
+        <h1 className="text-lg font-semibold">Cart Items ({cartCount})</h1>
+        <button
+          className="text-sm text-red-600 hover:underline"
+          onClick={() => {
+            if (window.confirm('Clear cart?')) clearCart();
+          }}
+        >
+          Clear cart
+        </button>
+      </div>
+
+      <div className="grid gap-4">
+        {cartItems.map(item => (
+          <div key={item.id} className="flex items-center justify-between border p-2 rounded">
+            <ProductCard product={item} />
+            <button
+              className="text-red-500 hover:underline"
+              onClick={() => removeFromCart(item.id)}
+            >
+              Remove
+            </button>
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-4 font-semibold">
+        Total: ${cartTotal.toFixed(2)}
+      </div>
     </div>
-  )
+  );
 }
 
-export default Cartpage
+export default Cartpage;

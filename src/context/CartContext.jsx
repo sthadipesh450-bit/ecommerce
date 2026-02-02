@@ -1,65 +1,59 @@
-// src/context/CartContext.jsx
-import React, { useState, useEffect } from 'react'
-import CartContext from './CartContextBase'
+import React, { createContext, useEffect, useState } from 'react';
+
+export const CartContext = createContext();
 
 function CartProvider({ children }) {
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    console.log('CartProvider mounted')
-  }, [])
+  const [cartItems, setCartItems] = useState(() => {
+    const savedCart = localStorage.getItem('cartItems');
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
+  // Sync cart to localStorage
   useEffect(() => {
-    console.log('CartProvider items changed:', items)
-  }, [items])
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }, [cartItems]);
 
   function addToCart(product) {
-    const exists = items.find(item => item.id === product.id)
-    if (exists) return
-
-    setItems(prev => {
-      const next = [...prev, product]
-      console.log('CartContext: addToCart — prevLen=', prev.length, 'nextLen=', next.length, 'productId=', product?.id)
-      return next
-    })
+    const exists = cartItems.find(item => item.id === product.id);
+    if (exists) return;
+    setCartItems(prev => [...prev, product]);
   }
 
   function removeFromCart(productId) {
-    setItems(prev => {
-      const next = prev.filter(item => item.id !== productId)
-      console.log('CartContext: removeFromCart — prevLen=', prev.length, 'nextLen=', next.length, 'productId=', productId)
-      return next
-    })
+    const updatedItems = cartItems.filter(item => item.id !== productId);
+    setCartItems(updatedItems);
   }
 
   function isInCart(productId) {
-    return items.some(item => item.id === productId)
+    return cartItems.some(item => item.id === productId);
   }
 
-  const cartCount = items.length
+  const cartCount = cartItems.length;
+  const cartTotal = cartItems.reduce((total, item) => total + item.price, 0);
 
   useEffect(() => {
-      async function fetchProducts() {
-        try {
-          const response = await fetch('https://fakestoreapi.com/products');
-          const data = await response.json();
-          setItems(data);
-          setLoading(false);  
-        }
-        catch(error) {
-          console.error('Error fetching products', error);
-          setLoading(false);
-        }
+    async function fetchProducts() {
+      try {
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
+        setItems(data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error fetching products', error);
+        setLoading(false);
       }
-      fetchProducts();
-    }, []);
+    }
+    fetchProducts();
+  }, []);
 
   return (
-    <CartContext.Provider value={{ items, loading, addToCart, removeFromCart, cartCount, isInCart }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, cartCount, isInCart, cartItems, cartTotal, loading }}>
       {children}
     </CartContext.Provider>
-  )
+  );
 }
 
-export default CartProvider
+export default CartProvider;
