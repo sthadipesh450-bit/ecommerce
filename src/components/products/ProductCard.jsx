@@ -40,7 +40,7 @@ const handleAddCart = () => {
 
 
  return (
-<Link to={`/products/${product.id}`} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow p-4">
+<Link to={`/products/${product.id}`} className="bg-white rounded-lg shadow hover:shadow-xl transition-all duration-300 p-4 transform hover:-translate-y-1">
 
 {/* Image */}
 
@@ -66,7 +66,7 @@ src={product.image}
 
  {/* Content */}
 
-<h3 className="text-lg font-semibold text-gray-900 mb-2">{product.title}</h3>
+<h3 className="text-base font-semibold text-gray-900 mb-2">{product.title}</h3>
 
 
 

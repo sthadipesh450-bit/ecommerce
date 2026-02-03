@@ -27,6 +27,10 @@ function CartProvider({ children }) {
     setCartItems(updatedItems);
   }
 
+  function clearCart() {
+    setCartItems([]);
+  }
+
   function isInCart(productId) {
     return cartItems.some(item => item.id === productId);
   }
@@ -50,7 +54,7 @@ function CartProvider({ children }) {
   }, []);
 
   return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, cartCount, isInCart, cartItems, cartTotal, loading }}>
+    <CartContext.Provider value={{ items, addToCart, removeFromCart, clearCart, cartCount, isInCart, cartItems, cartTotal, loading }}>
       {children}
     </CartContext.Provider>
   );

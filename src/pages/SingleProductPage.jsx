@@ -18,6 +18,9 @@ function SingleProductPage() {
     };
 
       useEffect(() => {
+        // Scroll to top when component mounts
+        window.scrollTo(0, 0);
+        
         async function fetchProducts() {
           try {
             const productId = parseInt(params.id);
