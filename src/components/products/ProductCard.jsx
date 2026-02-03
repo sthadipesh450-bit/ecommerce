@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 
 import { useCart } from '../../hooks/useCart';
+import { Link } from 'react-router-dom';
 
 
 function ProductCard({product}) {
@@ -39,11 +40,11 @@ const handleAddCart = () => {
 
 
  return (
-<div className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow p-4">
+<Link to={`/products/${product.id}`} className="bg-white rounded-lg shadow hover:shadow-lg transition-shadow p-4">
 
 {/* Image */}
 
-<div className="relative overflow-hidden bg-gray-200 h-48 rounded-lg mb-4">
+<div className="relative overflow-hidden bg-gray-100 h-48 rounded-lg mb-4 flex items-center justify-center">
 
 <img 
 
@@ -51,7 +52,7 @@ src={product.image}
 
  alt={product.name} 
 
- className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
+ className="max-w-full max-h-full object-contain"
 
  />
 
@@ -65,15 +66,15 @@ src={product.image}
 
  {/* Content */}
 
-<h3 className="text-lg font-semibold text-gray-900 mb-2">{product.name}</h3>
+<h3 className="text-lg font-semibold text-gray-900 mb-2">{product.title}</h3>
 
 
 
  <div className="flex items-center gap-1 mb-2">
 
-<span className="text-yellow-400">⭐⭐⭐⭐⭐</span>
+<span className="text-yellow-400">{'⭐'.repeat(Math.floor(product.rating.rate))}</span>
 
-<span className="text-sm text-gray-600">(128)</span>
+<span className="text-sm text-gray-600">({product.rating.count})</span>
 
  </div>
 
@@ -116,7 +117,7 @@ className={`w-full font-semibold py-2 px-4 rounded-lg transition ${
  )}
 
 
- </div>
+ </Link>
 
 )
 

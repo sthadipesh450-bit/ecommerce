@@ -2,7 +2,7 @@ import React from 'react'
 
 function WelcomeBanner({ user }) {
   return (
-    <section className="relative overflow-hidden rounded-xl p-8 sm:p-10 bg-gradient-to-r from-indigo-600 via-violet-600 to-pink-500 text-white shadow-2xl">
+    <section className="relative overflow-hidden rounded-xl p-8 sm:p-10 bg-linear-to-r from-indigo-600 via-violet-600 to-pink-500 text-white shadow-2xl">
       {/* Decorative shapes */}
       <svg className="pointer-events-none absolute right-0 top-0 -mr-20 -mt-12 opacity-20 w-64 h-64" viewBox="0 0 200 200" aria-hidden>
         <defs>
