@@ -29,7 +29,7 @@ function Homepage() {
       </div>
       
       {/* Simple CTA Section */}
-      <div className="mt-12 text-center py-12 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 shadow-sm">
+      <div className="mt-12 text-center py-12 bg-linear-to-r from-blue-50 to-indigo-50 rounded-xl border border-blue-100 shadow-sm">
         <div className="max-w-2xl mx-auto">
           <h3 className="text-2xl font-bold text-gray-900 mb-3">Discover More Amazing Products</h3>
           <p className="text-gray-600 text-lg">Quality products at unbeatable prices</p>
