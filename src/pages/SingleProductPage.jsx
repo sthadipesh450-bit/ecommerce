@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { products } from '../data/productsData'
 
@@ -100,12 +100,20 @@ function SingleProductPage() {
                   >
                     Already in Cart
                   </button>
-                  <button 
-                    onClick={() => removeFromCart(item.id)}
-                    className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
-                  >
-                    Remove from Cart
-                  </button>
+                  <div className="grid grid-cols-2 gap-3">
+                    <button 
+                      onClick={() => removeFromCart(item.id)}
+                      className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200"
+                    >
+                      Remove from Cart
+                    </button>
+                    <Link 
+                      to="/cart"
+                      className="bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-200 text-center flex items-center justify-center"
+                    >
+                      View Cart
+                    </Link>
+                  </div>
                 </div>
               ) : (
                 <button 
