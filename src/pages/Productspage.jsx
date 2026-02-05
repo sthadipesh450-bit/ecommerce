@@ -6,6 +6,9 @@ import CategoryTab from '../components/products/CategoryTab';
 import SearchProduct from '../components/products/SearchProduct';
 import { useSearchParams } from 'react-router-dom';
 import ProductRange from '../components/products/ProductRange';
+import FilterByRating from '../components/products/FIlterByRating';
+
+
 
 
 export default function Productspage() {
@@ -14,10 +17,13 @@ export default function Productspage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [search, setSearch] = useState(searchParams.get('search') || '');
-  const [minValue, setMinValue] = useState("");
-  const [maxValue, setMaxValue] = useState("");
-  console.log("min value", minValue);
-  console.log("max value", maxValue);
+  const [minValue, setMinValue] = useState(0);
+  const [maxValue, setMaxValue] = useState(1000);
+  const [minRating, setMinRating] = useState(0);
+  const [maxRating, setMaxRating] = useState(5);
+
+  console.log("minRating:", minRating);
+  console.log("maxRating:", maxRating);
 
   useEffect(() => {
     if (search) {
@@ -43,7 +49,17 @@ export default function Productspage() {
     });
   }
 
-  const finalFilteredItems = productRangeFilter(filterItems);
+  function productRatingFilter(filterItems) {
+    if (!minRating && !maxRating) return filterItems;
+    return filterItems.filter((product) => {
+      const min = minRating ? parseFloat(minRating) : 0;
+      const max = maxRating ? parseFloat(maxRating) : 5;
+      return product.rating && product.rating.rate >= min && product.rating.rate <= max;
+    });
+  }
+
+  const priceFilteredItems = productRangeFilter(filterItems);
+  const finalFilteredItems = productRatingFilter(priceFilteredItems);
 
   if (loading) {
     return <div className="text-center py-16">Loading...</div>;
@@ -64,6 +80,7 @@ export default function Productspage() {
           <div className="mb-6">
             <SearchProduct setSearch={setSearch} search={search} />
             <ProductRange setMaxValue={setMaxValue} setMinValue={setMinValue}/>
+            <FilterByRating setMaxRating={setMaxRating} setMinRating={setMinRating} />
 
           </div>
           

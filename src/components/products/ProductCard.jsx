@@ -72,6 +72,8 @@ src={product.image}
 
 <span className="text-yellow-400">{'⭐'.repeat(Math.floor(product.rating.rate))}</span>
 
+<span className="text-sm font-medium text-gray-700">{product.rating.rate}</span>
+
 <span className="text-sm text-gray-600">({product.rating.count})</span>
 
  </div>
