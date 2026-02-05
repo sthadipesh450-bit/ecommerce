@@ -4,14 +4,28 @@ import { useCart } from '../hooks/useCart';
 import categoriesData from '../data/categories';
 import CategoryTab from '../components/products/CategoryTab';
 import SearchProduct from '../components/products/SearchProduct';
+import { useSearchParams } from 'react-router-dom';
+import ProductRange from '../components/products/ProductRange';
 
 
 export default function Productspage() {
 
   const { items, loading } = useCart();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');
-  const [search, setSearch] = useState('');
-  console.log(selectedCategory);
+  const [search, setSearch] = useState(searchParams.get('search') || '');
+  const [minValue, setMinValue] = useState("");
+  const [maxValue, setMaxValue] = useState("");
+  console.log("min value", minValue);
+  console.log("max value", maxValue);
+
+  useEffect(() => {
+    if (search) {
+      setSearchParams({ search });
+    } else {
+      setSearchParams({});
+    }
+  }, [search, setSearchParams]);
 
   const filterItems = items.filter((product) => {
     const matchesCategory = selectedCategory === 'all' || product.category === selectedCategory;
@@ -19,6 +33,17 @@ export default function Productspage() {
     return matchesCategory && matchesSearch;
   });
   console.log("filtered items", filterItems);
+
+  function productRangeFilter(filterItems) {
+    if (!minValue && !maxValue) return filterItems;
+    return filterItems.filter((product) => {
+      const min = minValue ? parseFloat(minValue) : 0;
+      const max = maxValue ? parseFloat(maxValue) : Infinity;
+      return product.price >= min && product.price <= max;
+    });
+  }
+
+  const finalFilteredItems = productRangeFilter(filterItems);
 
   if (loading) {
     return <div className="text-center py-16">Loading...</div>;
@@ -37,7 +62,9 @@ export default function Productspage() {
           </p>
 
           <div className="mb-6">
-            <SearchProduct setSearch={setSearch} />
+            <SearchProduct setSearch={setSearch} search={search} />
+            <ProductRange setMaxValue={setMaxValue} setMinValue={setMinValue}/>
+
           </div>
           
           <div className="flex flex-wrap justify-center mb-6">
@@ -53,7 +80,7 @@ export default function Productspage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {filterItems.map((product) => (
+          {finalFilteredItems.map((product) => (
             <ProductCard 
               key={product.id}
               product={product}

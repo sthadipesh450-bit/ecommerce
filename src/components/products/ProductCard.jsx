@@ -11,8 +11,6 @@ const { addToCart, isInCart, removeFromCart } = useCart();
 
 const isCart = isInCart(product.id);
 
-console.log("isCart:", isCart);
-
 
 function addProductToCart() {
 
@@ -66,7 +64,7 @@ src={product.image}
 
  {/* Content */}
 
-<h3 className="text-base font-semibold text-gray-900 mb-2">{product.title}</h3>
+<h3 className="text-base font-semibold text-gray-900 mb-2 h-12 line-clamp-2 overflow-hidden">{product.title}</h3>
 
 
 

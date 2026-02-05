@@ -1,6 +1,6 @@
 import React from 'react'
 
-function SearchProduct({setSearch}) {
+function SearchProduct({setSearch, search}) {
   function onType(event){
     setSearch(event.target.value);
   }
@@ -14,6 +14,7 @@ function SearchProduct({setSearch}) {
       <input 
         type="text" 
         placeholder="Search products..." 
+        value={search}
         onChange={onType}
         className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm text-gray-900 placeholder-gray-500"
       />
