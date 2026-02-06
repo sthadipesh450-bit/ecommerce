@@ -7,9 +7,12 @@ import Productspage from './pages/Productspage'
 import CartProvider from './context/CartContext'
 import Cartpage from './pages/Cartpage'
 import SingleProductPage from './pages/SingleProductPage'
+import LoginPage from './pages/Loginpage'
+import { AuthProvider } from './context/AuthContext'
 
 function App() {
   return (
+    <AuthProvider>
     <CartProvider>  
   <Routes>
 
@@ -19,11 +22,17 @@ function App() {
       <Route path ='cart' element={<Cartpage/>} />
       <Route path='products' element={<Productspage/>} />
       <Route path='products/:id' element={<SingleProductPage/>} />
+      <Route path='login' element={<LoginPage/>} />
+      
+  </Route>
 
-    </Route>
-    <Route path='*' element={<NotFound/>}/>
+  <Route path='*' element={<NotFound/>}/>
+
   </Routes>
+
+  
   </CartProvider>
+  </AuthProvider>
   )
 }
 

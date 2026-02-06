@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useCart } from '../hooks/useCart'
 import { products } from '../data/productsData'
+import ProtectedRoute from '../components/common/ProtectedRoute';
 
 function SingleProductPage() {
     const params = useParams();
@@ -53,6 +54,7 @@ function SingleProductPage() {
         return <div className="text-center py-16">Loading...</div>;
       }
   return (
+    <ProtectedRoute>
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-6xl mx-auto px-4">
         <div className="bg-white rounded-lg shadow-lg overflow-hidden">
@@ -132,6 +134,7 @@ function SingleProductPage() {
         </div>
       </div>
     </div>
+    </ProtectedRoute>
   )
 }
 

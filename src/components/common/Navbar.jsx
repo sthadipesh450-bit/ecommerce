@@ -56,12 +56,18 @@ function Navbar() {
 
               Cart
 
-              {/* Cart Count Badge with new color suggestion */}
+              {/* Cart Count Badge */}
               {cartCount > 0 && (
                 <span className="inline-flex items-center justify-center min-w-6 h-6 px-2 text-xs font-medium rounded-full bg-cyan-400 text-black shadow-sm">
                   {cartCount}
                 </span>
               )}
+            </Link>
+            <Link
+              to="/Login"
+              className="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-lg transition duration-200 shadow-sm hover:shadow-md"
+            >
+              Login
             </Link>
           </div>
         </div>
