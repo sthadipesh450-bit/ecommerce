@@ -7,7 +7,7 @@ import Productspage from './pages/Productspage'
 import CartProvider from './context/CartContext'
 import Cartpage from './pages/Cartpage'
 import SingleProductPage from './pages/SingleProductPage'
-import LoginPage from './pages/Loginpage'
+import LoginPage from './pages/LoginPage'
 import { AuthProvider } from './context/AuthContext'
 
 function App() {
