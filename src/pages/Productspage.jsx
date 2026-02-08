@@ -6,7 +6,7 @@ import CategoryTab from '../components/products/CategoryTab';
 import SearchProduct from '../components/products/SearchProduct';
 import { useSearchParams } from 'react-router-dom';
 import ProductRange from '../components/products/ProductRange';
-import FilterByRating from '../components/products/FIlterByRating';
+import FilterByRating from '../components/products/FilterByRating';
 
 
 
