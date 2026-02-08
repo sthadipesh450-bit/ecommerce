@@ -7,6 +7,7 @@ import SearchProduct from '../components/products/SearchProduct';
 import { useSearchParams } from 'react-router-dom';
 import ProductRange from '../components/products/ProductRange';
 import FilterByRating from '../components/products/FilterByRating';
+import { useTheme } from '../context/ThemeContext';
 
 
 
@@ -14,6 +15,7 @@ import FilterByRating from '../components/products/FilterByRating';
 export default function Productspage() {
 
   const { items, loading } = useCart();
+  const { darkMode } = useTheme();
   const [searchParams, setSearchParams] = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [search, setSearch] = useState(searchParams.get('search') || '');
@@ -62,29 +64,29 @@ export default function Productspage() {
   const finalFilteredItems = productRatingFilter(priceFilteredItems);
 
   if (loading) {
-    return <div className="text-center py-16">Loading...</div>;
+    return <div className={`text-center py-16 ${darkMode ? 'text-slate-200' : 'text-slate-700'}`}>Loading...</div>;
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 via-white to-purple-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6 tracking-tight">
+    <div className={`min-h-screen ${darkMode ? 'bg-slate-950 text-white' : 'bg-linear-to-br from-blue-50 via-white to-purple-50 text-gray-900'}`}>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className={`text-3xl md:text-4xl lg:text-5xl font-extrabold mb-4 md:mb-6 tracking-tight ${darkMode ? 'text-white' : 'text-gray-900'}`}>
             All Products
           </h1>
           
-          <p className="text-gray-600 text-xl max-w-2xl mx-auto leading-relaxed mb-6">
+          <p className={`text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed mb-4 md:mb-6 ${darkMode ? 'text-slate-300' : 'text-gray-600'}`}>
             Discover our curated collection of premium products
           </p>
 
-          <div className="mb-6">
+          <div className="mb-4 md:mb-6 space-y-4">
             <SearchProduct setSearch={setSearch} search={search} />
             <ProductRange setMaxValue={setMaxValue} setMinValue={setMinValue}/>
             <FilterByRating setMaxRating={setMaxRating} setMinRating={setMinRating} />
 
           </div>
           
-          <div className="flex flex-wrap justify-center mb-6">
+          <div className="flex flex-wrap justify-center mb-4 md:mb-6">
             <CategoryTab CategoryName="all" key="all" setSelectedCategory={setSelectedCategory} selectedCategory={selectedCategory}/>
             {
               categoriesData.map((category) => {
@@ -93,10 +95,10 @@ export default function Productspage() {
             }
           </div>
           
-          <div className="w-32 h-1 bg-linear-to-r from-blue-500 to-purple-500 mx-auto rounded-full shadow-sm"></div>
+          <div className="w-24 md:w-32 h-1 bg-linear-to-r from-blue-500 to-purple-500 mx-auto rounded-full shadow-sm"></div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 lg:gap-8">
           {finalFilteredItems.map((product) => (
             <ProductCard 
               key={product.id}

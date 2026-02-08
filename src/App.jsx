@@ -9,9 +9,11 @@ import Cartpage from './pages/Cartpage'
 import SingleProductPage from './pages/SingleProductPage'
 import LoginPage from './pages/LoginPage'
 import { AuthProvider } from './context/AuthContext'
+import { ThemeProvider } from './context/ThemeContext'
 
 function App() {
   return (
+    <ThemeProvider>
     <AuthProvider>
     <CartProvider>  
   <Routes>
@@ -33,6 +35,7 @@ function App() {
   
   </CartProvider>
   </AuthProvider>
+  </ThemeProvider>
   )
 }
 
